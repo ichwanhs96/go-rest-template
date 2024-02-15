@@ -1,0 +1,27 @@
+# this docker compose file used to run server and postgresql db in our local machine using docker
+# run command "docker-compose -f docker-compose.yml up" to run everything
+# run command "docker-compose up -d postgres" to run db only
+
+version: '3.8'
+
+services:
+  postgres:
+    container_name: go-rest-template-postgres-db
+    image: postgres
+    restart: always
+    # settings for postgres
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: p4ssw0rd
+      POSTGRES_DB: test_db
+    # expose port 5432 in the docker to the local machine
+    ports:
+      - "5432:5432"
+    # persist database data into local file
+    volumes:
+      - $HOME/Desktop/PostgreSql-Snippets/infile:/infile
+      - pg_data:/var/lib/postgresql/data/
+
+volumes:
+  # this enable for multiple volume usages
+  pg_data:
